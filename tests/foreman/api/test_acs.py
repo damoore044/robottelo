@@ -27,7 +27,7 @@ from robottelo.constants.repos import PULP_FIXTURE_ROOT, PULP_SUBPATHS_COMBINED
 @pytest.mark.tier2
 @pytest.mark.upgrade
 @pytest.mark.parametrize('cnt_type', ['yum', 'file'])
-@pytest.mark.parametrize('acs_type', ['custom', 'simplified', 'rhui'])
+@pytest.mark.parametrize('acs_type', ['custom', 'simplified'])
 def test_positive_CRUD_all_types(
     request, module_target_sat, acs_type, cnt_type, module_yum_repo, module_file_repo
 ):

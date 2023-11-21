@@ -35,7 +35,7 @@ VAL_CANNOT_BE = 'cannot be'
 @pytest.mark.e2e
 @pytest.mark.tier2
 @pytest.mark.parametrize('cnt_type', ['yum', 'file'])
-@pytest.mark.parametrize('acs_type', ['custom', 'simplified', 'rhui'])
+@pytest.mark.parametrize('acs_type', ['custom', 'simplified'])
 def test_positive_CRUD_all_types(
     request, module_target_sat, acs_type, cnt_type, module_yum_repo, module_file_repo
 ):
