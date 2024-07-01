@@ -172,7 +172,7 @@ def registered_contenthost(
 
     :environment: Defaults to module_lce.
         To use Library environment for activation key / content-view:
-        pass the string 'library' (not case sensative) in the list of params.
+        pass the string 'Library' (not case sensative) in the list of params.
 
     :repos: pass as a parametrized request
         list of upstream URLs for custom repositories.
@@ -1104,9 +1104,10 @@ def test_positive_content_host_previous_env(
         2. Content host's previous environments have additional errata.
 
     :steps: Go to Content Hosts -> Select content host -> Errata Tab ->
-        Select Previous environments.
+        Select Previous environments (Environments Dropdown).
 
-    :expectedresults: The errata from previous environments are displayed.
+    :expectedresults: The errata dropdown from previous environments are displayed.
+        The previous environment is Library, the content view name is correct.
 
     :parametrized: yes
     """
@@ -1115,6 +1116,7 @@ def test_positive_content_host_previous_env(
     assert vm.execute(f'yum install -y {FAKE_1_CUSTOM_PACKAGE}').status == 0
     # Promote the latest content view version to a new lifecycle environment
     content_view = module_cv.read()
+    library_lce = content_view.environment[0].read()
     new_lce = module_target_sat.api.LifecycleEnvironment(
         organization=module_org,
         prior=module_lce,
@@ -1127,7 +1129,7 @@ def test_positive_content_host_previous_env(
     with session:
         session.location.select(loc_name=DEFAULT_LOC)
         # can view errata from previous env, dropdown option is correct
-        environment = f'Previous Lifecycle Environment ({module_lce.name}/{content_view.name})'
+        environment = f'Previous Lifecycle Environment ({library_lce.name}/{content_view.name})'
         content_host_erratum = session.contenthost.search_errata(
             hostname,
             CUSTOM_REPO_ERRATA_ID,
